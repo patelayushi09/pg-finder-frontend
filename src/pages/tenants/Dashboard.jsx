@@ -5,6 +5,7 @@ import StatsCard from "../../components/StatsCard";
 import ActivityList from "../../components/ActivityList";
 import PerformanceMetrics from "../../components/PerformanceMetrics";
 import { useNavigate } from "react-router-dom";
+import TenantChatbot from "./TenantChatbot";
 
 function Dashboard() {
   const [dashboardData, setDashboardData] = useState({
@@ -137,6 +138,8 @@ function Dashboard() {
       <div className="lg:col-span-1">
         <PerformanceMetrics metrics={dashboardData.performanceMetrics} />
       </div>
+
+      <TenantChatbot/>
     </div>
   );
 }

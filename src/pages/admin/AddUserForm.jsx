@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 const AddUserForm = ({ closeForm, fetchUsers }) => {
   const [role, setRole] = useState(null);
   const [formData, setFormData] = useState({});
-  
+
   // Define initial field structures
   const tenantFields = {
     firstName: "",
@@ -64,8 +64,8 @@ const AddUserForm = ({ closeForm, fetchUsers }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96 relative">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto relative">
         <button className="absolute top-2 right-2 text-gray-600" onClick={closeForm}>
           <X className="w-5 h-5" />
         </button>
@@ -92,19 +92,23 @@ const AddUserForm = ({ closeForm, fetchUsers }) => {
           <div>
             <h2 className="text-xl font-bold mb-4">Add {role}</h2>
             <form onSubmit={handleSubmit}>
-              {Object.keys(formData).map((field) => (
-                <div className="mb-2" key={field}>
-                  <label className="block text-sm font-medium text-gray-700">{field}</label>
-                  <input
-                    type={field.includes("Password") ? "password" : "text"}
-                    name={field}
-                    value={formData[field]}
-                    onChange={handleChange}
-                    className="w-full p-2 border rounded"
-                  />
-                </div>
-              ))}
-              <button type="submit" className="bg-[#D96851] text-white p-2 rounded w-full">
+              <div className={`${role === "Landlord" ? "grid grid-cols-2 gap-4" : ""}`}>
+                {Object.keys(formData).map((field) => (
+                  <div className="mb-2" key={field}>
+                    <label className="block text-sm font-medium text-gray-700 capitalize">
+                      {field.replace(/([A-Z])/g, " $1")}
+                    </label>
+                    <input
+                      type={field.toLowerCase().includes("password") ? "password" : "text"}
+                      name={field}
+                      value={formData[field]}
+                      onChange={handleChange}
+                      className="w-full p-2 border rounded"
+                    />
+                  </div>
+                ))}
+              </div>
+              <button type="submit" className="bg-[#D96851] text-white p-2 rounded w-full mt-4">
                 Submit
               </button>
             </form>
